@@ -8,7 +8,9 @@ import RegisterPage from './pages/RegisterPage.jsx';
 import axios from "axios";
 import { UserContextProvider } from './UserContext.jsx';
 import { useEffect } from 'react';
-import AccountPage from './pages/AccountPage';
+import AccountPage from './pages/AccountPage.jsx';
+import PlacesPage from './pages/PlacesPage.jsx';
+import PlacesFormPage from './pages/PlacesFormPage.jsx';
 
 axios.defaults.baseURL = "http://localhost:4000";
 axios.defaults.withCredentials = true;
@@ -21,8 +23,9 @@ function App() {
           <Route index element={<IndexPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/account/:subpage?" element={<AccountPage />} />
-          <Route path="/account/:subpage/:action" element={<AccountPage />} />
+          <Route path="/account" element={<AccountPage />} />
+          <Route path="/account/places" element={<PlacesPage />} />
+          <Route path="/account/places/:id" element={<PlacesFormPage />} />
         </Route>
       </Routes>
     </UserContextProvider>
