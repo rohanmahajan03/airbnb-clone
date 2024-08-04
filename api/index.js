@@ -11,8 +11,8 @@ const app = express();
 const path = require("path");
 const multer = require("multer");
 const Place = require('./models/Place.js');
-const fs = require("fs")
-
+const fs = require("fs");
+const Booking = require('./models/Booking.js');
 
 const bcryptSalt = bcrypt.genSaltSync(10);
 const jwtSecret = "jivohjikohnipwjnigrjnikophjinkgojnoe"
@@ -122,6 +122,7 @@ app.post('/places', (req, res) => {
     const {token} = req.cookies;
     const {title, address, addedPhotos, description, perks, extraInfo, checkIn, checkOut, price} = req.body;
     jwt.verify(token, jwtSecret, {}, async (err, userData) =>{
+        console.log("USER ID: ", userData.id);
         if (err) throw err;
         const placeDoc = await Place.create({
             owner: userData.id,
@@ -182,6 +183,32 @@ app.put('/places', async (req,res) => {
 
 app.get('/places', async (req,res) => {
     res.json(await Place.find());
+});
+
+app.post('/bookings', (req,res) => {
+    const {token} = req.cookies;
+    jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+        const {
+            place, checkIn, checkOut, 
+            name, phone, price} = req.body;
+        Booking.create({
+            place, checkIn, checkOut, 
+            name, phone, price, user:userData.id
+        }).then((doc) =>{
+            res.json(doc);
+        }).catch( err => {
+            throw err;
+        })
+    })
+})
+
+app.get('/bookings', (req,res) => {
+    const {token} = req.cookies;
+    jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+        if (err) throw err;
+        const {id} = userData;
+        res.json( await Booking.find({user:userData.id}).populate('place'));
+    })
 })
 
 app.listen(4000);

@@ -41,11 +41,14 @@ export default function PlacesFormPage(){
 
     async function savePlace(ev){
         ev.preventDefault();
+        console.log("ID Value: ", id)
         if(id){
-            await axios.put("/places/", {id, title, address, addedPhotos, description, perks, extraInfo, checkIn, checkOut, price});
+            console.log("trying to save new place...")
+            await axios.put("/places", {id, title, address, addedPhotos, description, perks, extraInfo, checkIn, checkOut, price});
 
         }
         else{
+            console.log("trying to create new place...");
             await axios.post("/places", {title, address, addedPhotos, description, perks, extraInfo, checkIn, checkOut, price});
         }
         setRedirect(true);
