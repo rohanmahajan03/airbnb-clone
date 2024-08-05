@@ -79,7 +79,12 @@ export default function BookingPage(){
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
-                        <p className="px-1">{differenceInCalendarDays(new Date(booking.checkOut), new Date(booking.checkIn))} Days:</p>
+                        {differenceInCalendarDays(new Date(booking.checkOut), new Date(booking.checkIn)) > 1 ? (
+                            <p className="px-1">{differenceInCalendarDays(new Date(booking.checkOut), new Date(booking.checkIn))} Days:</p>
+                        ) : (
+                            <p className="px-1">{differenceInCalendarDays(new Date(booking.checkOut), new Date(booking.checkIn))} Day:</p>
+                        )
+                        }   
                     </div>
                     <div className="flex px-1">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">

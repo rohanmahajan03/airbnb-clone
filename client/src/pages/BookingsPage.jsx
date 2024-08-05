@@ -11,14 +11,15 @@ export default function BookingsPage(){
             setBookings(response.data);
         })
     }, []);
+
     return (
         <div>
             <AccountNav />
             <div>
                 {bookings?.length > 0 && bookings.map(booking => (
-                    <Link to={`/account/bookings/${booking._id}`} className="flex gap-4 bg-gray-200 rounded-2xl overflow-hidden shadow shadow-md">
+                    <Link to={`/account/bookings/${booking._id}`} className="flex gap-4 bg-gray-200 rounded-2xl overflow-hidden shadow shadow-md mb-4">
                         {booking.place.photos?.length > 0 &&(
-                        <div className="w-full bg-gray-200 shadow-lg rounded-lg flex p-4"> 
+                        <div className="w-full h-48 bg-gray-200 rounded-lg flex p-4"> 
                             <div className="h-full flex items-stretch">
                                 <img className="object-cover w-32 rounded-md" src={"http://localhost:4000/uploads/"+booking.place.photos[0]} alt="" />
                             </div>
@@ -32,10 +33,15 @@ export default function BookingsPage(){
                                     <p className="ml-1">{format(new Date(booking.checkIn), 'yyyy-MM-dd')} &rarr; {format(new Date(booking.checkOut), 'yyyy-MM-dd')}</p>
                                 </div>
                                 <div className="flex mt-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
-                                </svg>
-                                    <p className="px-1 py-0">{differenceInCalendarDays(new Date(booking.checkOut), new Date(booking.checkIn))} Days</p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+                                    </svg>
+                                        {differenceInCalendarDays(new Date(booking.checkOut), new Date(booking.checkIn)) > 1 && (
+                                            <p className="px-1 py-0">{differenceInCalendarDays(new Date(booking.checkOut), new Date(booking.checkIn))} Days</p>
+                                        )}
+                                        {differenceInCalendarDays(new Date(booking.checkOut), new Date(booking.checkIn)) <= 1 && (
+                                            <p className="px-1 py-0">{differenceInCalendarDays(new Date(booking.checkOut), new Date(booking.checkIn))} Day</p>
+                                        )}                                
                                 </div>
                                 <div className="flex mt-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">

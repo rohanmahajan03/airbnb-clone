@@ -67,9 +67,9 @@ export default function PlacesFormPage(){
                 <h2 className="text-xl mt-4">Listing Title</h2>
                 <p className= "text-sm text-gray-500">a short yet catchy title for your listing!</p>
                 <input type="text" value={title} onChange={ev => setTitle(ev.target.value)} placeholder="For example: My lovely apt in Parkway Gardens" />
-                <h2 className="text-xl mt-4">Address</h2>
-                <p className= "text-sm text-gray-500">address of your listing</p>
-                <input type="text" value={address} onChange={ev => setAddress(ev.target.value)} placeholder="Address" />
+                <h2 className="text-xl mt-4">Location</h2>
+                <p className= "text-sm text-gray-500">Format as: City, State</p>
+                <input type="text" value={address} onChange={ev => setAddress(ev.target.value)} placeholder="ex: Houston, TX" />
                 <PhotosUploader addedPhotos={addedPhotos} onChange={setAddedPhotos}/>
                 <h2 className="text-xl mt-4">Description</h2>
                 <p className= "text-sm text-gray-500">a brief description of your listing (a few sentences will suffice)</p>
